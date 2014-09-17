@@ -4,7 +4,7 @@ public class SuiteChainee
 		/*Parametre1 : Val1
 		Parametre2 : Val2
 		Parametre3 : Operateur
-		Parametre4 : Indexe (le dernier indexe depuis lequel la chaine a Ã©tÃ© rempli)
+		Parametre4 : Indexe (le dernier indexe depuis lequel la chaine a été rempli)
 		Parametre5 : Taille
 		Parametre6 : Contenue 
 		*/
@@ -74,14 +74,46 @@ public class SuiteChainee
 		return -111; //si une erreur survient la valeur de retour est facilement identifiable
 	}
 	
+	/* Code provenant de l'énoncé */
 	public int addition(int a, int b)
 	{
-		return a+b;
+		int res = a;
+		if (b > 0) 
+		{
+			while(b-- != 0) 
+			{
+				res++;
+			}
+		}
+		else if (b < 0) 
+		{
+			while(b++ != 0) 
+			{
+				res--;
+			}
+		}
+		return res;
 	}
 	
+	/* Inspiré de l'exemple de l'énoncé */
 	public int soustraction(int a, int b)
 	{
-		return a-b;
+		int res = a;
+		if (b > 0) 
+		{
+			while(b-- != 0) 
+			{
+				res--;
+			}
+		}
+		else if (b < 0) 
+		{
+			while(b++ != 0) 
+			{
+				res++;
+			}
+		}
+		return res;
 	}
 	
 	public int multiplication(int a, int b)
@@ -106,5 +138,95 @@ public class SuiteChainee
 		
 		return "";
 	}
+	
+	public Boolean add(int element)
+	{
+		if (index < taille-1)
+		{
+			ValeurChainee v = contenue;
+			
+			while (v.next != null)
+			{
+				v = v.next;
+			}
+			
+			v.next = new ValeurChainee(element);
+			v.next.previous = v;
+			
+			index++;
+			
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	public void removeAt(int position)
+	{
+		ValeurChainee v = contenue;
+		
+		while (position > 0)
+		{
+			v = v.next;
+			position--;
+		}
+		
+		v.previous = v.next;
+		v.next = v.previous;
+		
+		index--;
+	}
+	
+	public void removeItem(int element)
+	{
+		ValeurChainee v = contenue;
+		
+		for (int i = 0; i <= index; i++)
+		{
+			if (v.valeur == element)
+			{
+				this.removeAt(i);
+			}
 
+			v = v.next;
+		}
+	}
+	
+	public void setAt(int element, int position)
+	{
+		ValeurChainee v = contenue;
+		
+		while(position > 0)
+		{
+			v = v.next;
+		}
+		
+		v.valeur = element;
+	}
+	
+	public int getAt(int position)
+	{
+		ValeurChainee v = contenue;
+		
+		while(position > 0)
+		{
+			v = v.next;
+		}
+		
+		return v.valeur;
+	}
+	
+	public int getSize()
+	{
+		return this.taille;
+	}
+	
+	public void reset()
+	{
+		this.contenue = null;
+		
+		this.index = 0;
+	}
 }
