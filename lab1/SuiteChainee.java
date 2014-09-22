@@ -132,7 +132,7 @@ public class SuiteChainee
 	public String toString()
 	{
 		//MaListe : -2, 5, 3, 8, 11
-		String retour = "MaListe : ";
+		String retour = "";
 		
 		ValeurChainee v = contenue;
 		
@@ -144,7 +144,7 @@ public class SuiteChainee
 			v = v.next;
 		}
 		
-		return "";
+		return retour;
 	}
 	
 	public Boolean add(int element)
