@@ -251,7 +251,20 @@ public class SuiteChainee
 	
 	public Boolean isValide()
 	{
-		return false;
+		ValeurChainee a = this.getValidSuiteChainee(), b = contenue;
+		
+		for (int i = 0; i < taille; i++)
+		{
+			if (a == null || b == null)
+				return false;
+			
+			if (a.valeur != b.valeur)
+				return false;
+			a = a.next;
+			b = b.next;
+		}
+		
+		return true;
 	}
 	
 	
@@ -270,7 +283,6 @@ public class SuiteChainee
 			writer.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-		}
-		
+		}	
 	}
 }
