@@ -42,6 +42,7 @@ public class SuiteChainee
 			contenue = getValidSuiteChainee();
 		}
 		
+		System.out.println("MaListe : " + this.toString());
 	}
 	
 	public ValeurChainee getValidSuiteChainee()
@@ -140,6 +141,7 @@ public class SuiteChainee
 		return a/b;
 	}
 	
+	// Print the values with ',' as separator
 	public String toString()
 	{
 		//MaListe : -2, 5, 3, 8, 11
@@ -149,6 +151,10 @@ public class SuiteChainee
 		
 		for(int i=0; i<taille; i++)
 		{
+			// Cut it short if it's not populated
+			if (v == null)
+				return retour;
+			
 			retour += v.valeur;
 			if (i != (taille - 1))
 				retour += ", ";
@@ -249,6 +255,9 @@ public class SuiteChainee
 		this.index = 0;
 	}
 	
+	// This function checks if the values in list are valid according to 
+	// the parameters operateur, val1 and val2
+	// return: Boolean, true if values match the rules
 	public Boolean isValide()
 	{
 		ValeurChainee a = this.getValidSuiteChainee(), b = contenue;
@@ -268,7 +277,9 @@ public class SuiteChainee
 	}
 	
 	
-	
+	// Write parameters and list values to a file
+	// Parameters : 
+	// 			String path : file path to save the current list 
 	public void save(String path)
 	{
 		PrintWriter writer;
