@@ -48,19 +48,30 @@ public class SuiteChainee
 	{
 		//Retourne une liste chainee valide à partir des propriétés de la suite chainee courante.
 		
-		ValeurChainee chaine =null;
+		ValeurChainee chaine = null;
+		ValeurChainee first = null;
 		for(int i=0; i<taille; i++)
 		{
 			if(i==0)
 			{
-				chaine = new ValeurChainee(effectueOperation(operateur,val1,val2));
-				continue;
+				chaine = new ValeurChainee(val1);
+				first = chaine;
 			}
-			
-			chaine.next = new ValeurChainee(effectueOperation(operateur,chaine.valeur,val2));
+			else if (i == 1)
+			{
+				chaine.next = new ValeurChainee(val2);
+				chaine.next.previous = chaine;
+				chaine = chaine.next;
+			}
+			else
+			{
+				chaine.next = new ValeurChainee(effectueOperation(operateur,chaine.previous.valeur, chaine.valeur));
+				chaine.next.previous = chaine;
+				chaine = chaine.next;
+			}
 		}
 		
-		return chaine;
+		return first;
 	}
 	
 	public int effectueOperation(String operateur, int a, int b)
@@ -237,6 +248,13 @@ public class SuiteChainee
 		
 		this.index = 0;
 	}
+	
+	public Boolean isValide()
+	{
+		return false;
+	}
+	
+	
 	
 	public void save(String path)
 	{

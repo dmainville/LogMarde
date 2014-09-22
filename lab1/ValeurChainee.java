@@ -8,5 +8,9 @@ public class ValeurChainee
 	public ValeurChainee(int valeur)
 	{
 		this.valeur = valeur;
+		
+		// instantiate to NULL
+		this.next = null;
+		this.previous = null;
 	}
 }
