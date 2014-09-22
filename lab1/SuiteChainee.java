@@ -1,3 +1,6 @@
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+
 
 public class SuiteChainee
 {
@@ -131,9 +134,14 @@ public class SuiteChainee
 		//MaListe : -2, 5, 3, 8, 11
 		String retour = "MaListe : ";
 		
+		ValeurChainee v = contenue;
+		
 		for(int i=0; i<taille; i++)
 		{
-
+			retour += v.valeur;
+			if (i != (taille - 1))
+				retour += ", ";
+			v = v.next;
 		}
 		
 		return "";
@@ -228,5 +236,23 @@ public class SuiteChainee
 		this.contenue = null;
 		
 		this.index = 0;
+	}
+	
+	public void save(String path)
+	{
+		PrintWriter writer;
+		try {
+			writer = new PrintWriter(path);
+			writer.println("Parametre1 : " + this.val1);
+			writer.println("Parametre2 : " + this.val2);
+			writer.println("Parametre3 : " + this.operateur);
+			writer.println("Parametre4 : " + this.index);
+			writer.println("Parametre5 : " + this.taille);
+			writer.println("Parametre6 : " + this.toString());
+			writer.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		
 	}
 }
