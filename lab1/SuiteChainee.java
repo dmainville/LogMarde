@@ -49,30 +49,19 @@ public class SuiteChainee
 	{
 		//Retourne une liste chainee valide à partir des propriétés de la suite chainee courante.
 		
-		ValeurChainee chaine = null;
-		ValeurChainee first = null;
+		ValeurChainee chaine =null;
 		for(int i=0; i<taille; i++)
 		{
 			if(i==0)
 			{
-				chaine = new ValeurChainee(val1);
-				first = chaine;
+				chaine = new ValeurChainee(effectueOperation(operateur,val1,val2));
+				continue;
 			}
-			else if (i == 1)
-			{
-				chaine.next = new ValeurChainee(val2);
-				chaine.next.previous = chaine;
-				chaine = chaine.next;
-			}
-			else
-			{
-				chaine.next = new ValeurChainee(effectueOperation(operateur,chaine.previous.valeur, chaine.valeur));
-				chaine.next.previous = chaine;
-				chaine = chaine.next;
-			}
+			
+			chaine.next = new ValeurChainee(effectueOperation(operateur,chaine.valeur,val2));
 		}
 		
-		return first;
+		return chaine;
 	}
 	
 	public int effectueOperation(String operateur, int a, int b)
@@ -133,12 +122,68 @@ public class SuiteChainee
 	
 	public int multiplication(int a, int b)
 	{
-		return a*b;
+		if(multiplicationResultShouldBeNegative(a,b))
+			return  Math.negateExact(absMultiplication(a,b));
+		
+		return  absMultiplication(a,b);
+	}
+	
+	public int absMultiplication(int a, int b)
+	{
+		//Pris de http://stackoverflow.com/questions/2069488/how-can-i-perform-multiplication-without-the-operator
+		return  (int) Math.round(Math.pow(10,(Math.log10(Math.abs(a)) + Math.log10(Math.abs(b)))));
+	}
+	
+	public Boolean multiplicationResultShouldBeNegative(int a, int b)
+	{
+		return ((a <0 && b>=0) || (a>=0 && b<0));
 	}
 	
 	public int division(int a, int b)
 	{
-		return a/b;
+		if(multiplicationResultShouldBeNegative(a,b))
+			return  Math.negateExact(asbDivision(a,b));
+		
+		return  asbDivision(a,b);
+	}
+	
+	public int asbDivision(int dividend, int divisor)
+	{ 
+
+		dividend = Math.abs(dividend);
+		divisor = Math.abs(divisor);
+		
+		if(divisor == 0)
+			return 0;
+		
+		//Pris de http://stackoverflow.com/questions/5386377/division-without-using
+	    int denom=divisor;
+	    int current = 1;
+	    int answer=0;
+
+	    if ( denom > dividend) 
+	        return 0;
+
+	    if ( denom == dividend)
+	        return 1;
+
+	    while (denom <= dividend) {
+	        denom <<= 1;
+	        current <<= 1;
+	    }
+
+	    denom >>= 1;
+	    current >>= 1;
+
+	    while (current!=0) {
+	        if ( dividend >= denom) {
+	            dividend -= denom;
+	            answer |= current;
+	        }
+	        current >>= 1;
+	        denom >>= 1;
+	    }    
+	    return answer;
 	}
 	
 	// Print the values with ',' as separator
