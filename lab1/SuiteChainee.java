@@ -130,8 +130,15 @@ public class SuiteChainee
 	
 	public int absMultiplication(int a, int b)
 	{
-		//Pris de http://stackoverflow.com/questions/2069488/how-can-i-perform-multiplication-without-the-operator
-		return  (int) Math.round(Math.pow(10,(Math.log10(Math.abs(a)) + Math.log10(Math.abs(b)))));
+		a = Math.abs(a);
+		b = Math.abs(b);
+		
+		int ret = 0;
+		for (int i=0; i<b; i++)
+		{
+			ret = addition(ret,a);
+		}
+		return ret;
 	}
 	
 	public Boolean multiplicationResultShouldBeNegative(int a, int b)
@@ -177,7 +184,7 @@ public class SuiteChainee
 
 	    while (current!=0) {
 	        if ( dividend >= denom) {
-	            dividend -= denom;
+	            dividend = soustraction(dividend, denom);
 	            answer |= current;
 	        }
 	        current >>= 1;
