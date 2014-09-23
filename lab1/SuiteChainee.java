@@ -1,5 +1,10 @@
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.io.PrintWriter;
+
+import sun.security.util.Length;
 
 
 public class SuiteChainee
@@ -45,23 +50,41 @@ public class SuiteChainee
 		System.out.println("MaListe : " + this.toString());
 	}
 	
+	// This ctor loads the list from a file
+	public SuiteChainee(String path)
+	{
+		load(path);
+		System.out.println("MaListe : " + this.toString());
+	}
+	
 	public ValeurChainee getValidSuiteChainee()
 	{
 		//Retourne une liste chainee valide à partir des propriétés de la suite chainee courante.
 		
-		ValeurChainee chaine =null;
+		ValeurChainee chaine = null;
+		ValeurChainee first = null;
 		for(int i=0; i<taille; i++)
 		{
 			if(i==0)
 			{
-				chaine = new ValeurChainee(effectueOperation(operateur,val1,val2));
-				continue;
+				chaine = new ValeurChainee(val1);
+				first = chaine;
 			}
-			
-			chaine.next = new ValeurChainee(effectueOperation(operateur,chaine.valeur,val2));
+			else if (i == 1)
+			{
+				chaine.next = new ValeurChainee(val2);
+				chaine.next.previous = chaine;
+				chaine = chaine.next;
+			}
+			else
+			{
+				chaine.next = new ValeurChainee(effectueOperation(operateur,chaine.previous.valeur, chaine.valeur));
+				chaine.next.previous = chaine;
+				chaine = chaine.next;
+			}
 		}
 		
-		return chaine;
+		return first;
 	}
 	
 	public int effectueOperation(String operateur, int a, int b)
@@ -347,5 +370,59 @@ public class SuiteChainee
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}	
+	}
+	
+	private void load(String path)
+	{
+		try {
+			BufferedReader r = new BufferedReader(new FileReader(path));
+			this.chemin_liste = path;
+			this.val1 = getIntFromLine(r.readLine());
+			this.val2 = getIntFromLine(r.readLine());
+			this.operateur = getStringFromLine(r.readLine());
+			this.index = getIntFromLine(r.readLine());
+			this.taille = getIntFromLine(r.readLine());
+
+			String data = getStringFromLine(r.readLine());
+			String[] strValues = data.split(",");
+			
+			
+			ValeurChainee val = null;
+			ValeurChainee first = null;
+			
+			for (int i = 0; i < strValues.length; i++)
+			{
+				if (strValues[i].isEmpty() || strValues[i].trim().isEmpty())
+					continue;
+				
+				if (i == 0)
+				{
+					val = new ValeurChainee(Integer.parseInt(strValues[i].trim()));
+					first = val;
+					continue;
+				}
+				
+				val.next = new ValeurChainee(Integer.parseInt(strValues[i].trim()));
+				val.next.previous = val;
+				val = val.next;
+			}
+			
+			this.contenue = first;
+			
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private int getIntFromLine(String line)
+	{
+		return Integer.parseInt(line.substring(13, line.length()).trim());
+	}
+	
+	private String getStringFromLine(String line)
+	{
+		return line.substring(13, line.length());
 	}
 }

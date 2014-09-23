@@ -19,14 +19,13 @@ public class Program
 		System.out.println("Division : "+s.division(31, -3));
 		System.out.println("Division : "+s.division(872, -14));
 		
-		s.save("suite.txt");
-		
 		System.out.println(s.isValide());
 		
 		SuiteChainee s1 = new SuiteChainee("","addition",1,3,10,false);
-		
+		s1.save("suite.txt");
 		System.out.println(s1.isValide());
 		
+		SuiteChainee s2 = new SuiteChainee("suite.txt");
 	}
 
 }
