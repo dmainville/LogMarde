@@ -27,14 +27,53 @@ public class SuiteChaineeImplTest {
 	@Test
 	public void testEC1() {
 		try {
-			suiteChainee.build("config.properties", "add", 3, 2, 5, true);
-			Properties prop = PropReader.readfile("src/config.properties");
+			String configFile = "configEC1.properties";
+			suiteChainee.build(configFile, "add", Integer.MIN_VALUE - 10, Integer.MIN_VALUE - 10, -1, true);
+			Properties prop = PropReader.readfile("src/"+configFile);
 			assertEquals(true, PropReader.isValid(prop));
 			
 		} catch (Exception e) {
 			assertTrue(false);
 		}
 	}
+	
+	@Test
+	public void testEC2() {
+		try {
+			String configFile = "configEC2.properties";
+			suiteChainee.build(configFile, "soust", 10, 5, 5, true);
+			Properties prop = PropReader.readfile("src/"+configFile);
+			assertEquals(true, PropReader.isValid(prop));
+			
+		} catch (Exception e) {
+			assertTrue(false);
+		}
+	}
+	
+	
+	@Test
+	public void testEC3() {
+		try {
+			String configFile = "configEC3.properties";
+			suiteChainee.build(configFile, "mult", Integer.MAX_VALUE + 10, Integer.MAX_VALUE + 10, 1000, true);
+			Properties prop = PropReader.readfile("src/"+configFile);
+			assertEquals(true, PropReader.isValid(prop));
+			
+		} catch (Exception e) {
+			assertTrue(false);
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	public static class PropReader {
 		
