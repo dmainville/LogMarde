@@ -42,38 +42,6 @@ public class SuiteChaineeImplTest {
 	}
 
 	
-	@Test
-	public void testsAC() {
-//		try{
-//			
-//			String[] operations = {"add","soust","mult","div"};
-//			int[] valeurA = {1,2,3,64,5,6,7,128,5,3,3,999999};
-//			int[] valeurB = {9,10,11,2,13,14,15,2,6,3,4,2};
-//			int[] taille = {3,4,5,3,7,8,3,4,11,12,7,9};
-//			
-//			for(int i =0; i<valeurA.length; i++){
-//				String configFile = "configAC"+(i+1)+".properties";
-//				suiteChainee.build(configFile, operations[i%4], valeurA[i%valeurA.length], valeurB[i%valeurB.length], taille[i%taille.length], true);
-//				Properties prop = PropReader.readfile("src/"+configFile);
-//				if(!PropReader.isValid(prop))
-//					System.out.println(i+" invalide");
-//				assertEquals(true, PropReader.isValid(prop));
-//				suiteChainee.isValid(configFile);
-//			}
-//			
-//			for(int i = 0 ; i<valeurA.length; i++){
-//				String configFile = "configAC"+(i+1)+".properties";
-//				suiteChainee.build(configFile, operations[i%4], valeurA[i%valeurA.length], valeurB[i%valeurB.length], taille[i%taille.length], false);
-//				Properties prop = PropReader.readfile("src/"+configFile);		
-//				assertEquals(true, PropReader.isValid(prop));
-//				suiteChainee.isValid(configFile);
-//			}
-//			
-//		} catch (Exception e) {
-//			System.out.println(e.getMessage()+e.toString());
-//		}
-	}
-	
 	
 
 	@Test
@@ -138,10 +106,83 @@ public class SuiteChaineeImplTest {
 			RunTest();
 	}
 	
+	@Test
+	public void Liste1() {	
+		try {
+			MyList list = new MyListImpl();
+			
+			list.add(5);
+			list.add(5);
+			list.setAt(0, 1);
+			assertEquals(list.getAt(1), 0);
+			assertEquals(list.getSize(), 2);
+			list.removeAt(0);
+			list.add(5);
+			list.removeAt(1);
+			list.add(6);
+			list.add(7);
+			list.reset();
+			
+			list.add(5);
+			list.add(5);
+			list.add(6);
+			list.add(7);
+			list.add(8);
+			list.add(9);
+			list.add(10);
+			list.removeItem(6);
+			list.removeItem(5);
+			list.removeAt(3);
+
+
+		} catch (Exception e) {
+			//e.printStackTrace();
+		}
+	}
 	
+	@Test
+	public void Liste2() {	
+		try {
+			MyList list = new MyListImpl();
+			list.setAt(5, 5);
+			
+		} catch (Exception e) {
+			//e.printStackTrace();
+		}
+	}
 	
+	@Test
+	public void Liste3() {	
+		try {
+			MyList list = new MyListImpl();
+			list.getAt(5);
+			
+		} catch (Exception e) {
+			//e.printStackTrace();
+		}
+	}
 	
+	@Test
+	public void Liste4() {	
+		try {
+			MyList list = new MyListImpl();
+			list.removeAt(5);
+			
+		} catch (Exception e) {
+			//e.printStackTrace();
+		}
+	}
 	
+	@Test
+	public void Liste5() {	
+		try {
+			MyList list = new MyListImpl();
+			list.removeItem(5);
+			
+		} catch (Exception e) {
+			//e.printStackTrace();
+		}
+	}
 	
 	
 	
