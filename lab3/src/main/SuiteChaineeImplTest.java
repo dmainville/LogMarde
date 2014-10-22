@@ -16,6 +16,7 @@ import org.junit.Test;
 public class SuiteChaineeImplTest {
 
 	SuiteChainee suiteChainee;
+	Calculator myCalculator= new CalculatorImpl();
 	
 	public TestCase AllCover1 	= TestCase.Create("add", 1, 9, 3, true); // Fichier valide
 	public TestCase AllCover2 	= TestCase.Create("soust", 1, 9, 3, true); // Fichier valide
@@ -40,8 +41,6 @@ public class SuiteChaineeImplTest {
 	@After
 	public void tearDown() throws Exception {
 	}
-
-	
 	
 
 	@Test
@@ -184,13 +183,81 @@ public class SuiteChaineeImplTest {
 		}
 	}
 	
+	//Test de Calculator
+	@Test
+	public void AllCoverCalcTest1() {
+		int result = myCalculator.add(1, 2);
+		assertEquals(true, result == 3);
+	}
 	
+	@Test
+	public void AllCoverCalcTest2() {
+		int result = myCalculator.add(1, -2);
+		assertEquals(true, result == -1);
+	}
 	
+	@Test
+	public void AllCoverCalcTest3() {
+		int result = myCalculator.substract(4, -3);
+		assertEquals(true, result == 7);
+	}
 	
+	@Test
+	public void AllCoverCalcTest4() {
+		int result = myCalculator.multiply(3, 4);
+		assertEquals(true, result == 12);
+	}
 	
+	@Test
+	public void AllCoverCalcTest5() {
+		int result = myCalculator.multiply(-2, 4);
+		assertEquals(true, result == -8);
+	}
 	
+	@Test
+	public void AllCoverCalcTest6() {
+		int result = myCalculator.multiply(-2, -4);
+		assertEquals(true, result == 8);
+	}
 	
+	@Test
+	public void AllCoverCalcTest7() {
+		try{
+			int result = myCalculator.divide(2, 0);
+			assertEquals(true, false);
+		}
+		catch(Exception e){
+			assert(true);
+		}
+	}
 	
+	@Test
+	public void AllCoverCalcTest8() {
+		int result = myCalculator.divide(-8, 2);
+		assertEquals(true, result == -4);
+
+	}
+	
+	@Test
+	public void AllCoverCalcTest9() {
+		int result = myCalculator.divide(-8, -2);
+		assertEquals(true, result == 4);
+
+	}
+	
+	@Test
+	public void AllCoverCalcTest10() {
+		int result = myCalculator.divide(4, 8);
+		assertEquals(true, result == 1);
+
+	}
+	
+	@Test
+	public void AllCoverCalcTest11() {
+		int result = myCalculator.divide(4, -1);
+		assertEquals(true, result == -4);
+
+	}
 	
 	
 	
