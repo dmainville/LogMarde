@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>SuiteChaineeImpl.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">SuiteChaineeImplTest (16-Oct-2014 11:50:52 PM)</a> &gt; <a href="../../index.html" class="el_group">lab3</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">main</a> &gt; <span class="el_source">SuiteChaineeImpl.java</span></div><h1>SuiteChaineeImpl.java</h1><pre class="source lang-java linenums">/**
+ * @class			: SuiteChaineeImpl
+ * @interface		: SuiteChainee
+ * @author	 		: Ons mlouki
+ * 					  Ons.mlouki@gmail.com
+ * 					  
+ * 
+ * @summary			: build numerical sequence in linkedList and check if last numerical sequence saved isValid
+ */
+package main;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.util.ArrayList;
+import java.util.Properties;
+
+<span class="fc" id="L17">public class SuiteChaineeImpl implements SuiteChainee {</span>
+	
+	private static Properties prop;
+	private static FileInputStream propFile;
+	private static FileOutputStream editpropFile;
+	
+	public void build(String path, String op,int val1, int val2,int taille,Boolean etatVide) throws Exception{
+		
+<span class="fc" id="L25">		prop = new Properties();</span>
+<span class="fc" id="L26">		propFile = new FileInputStream(&quot;src/&quot;+path); //charge le fichier de propriétés</span>
+<span class="fc" id="L27">		prop.load(propFile);</span>
+<span class="fc" id="L28">		StringBuilder chaineContent=new StringBuilder();</span>
+<span class="pc bpc" id="L29" title="1 of 2 branches missed.">		if (taille&gt;=10)</span>
+		{
+<span class="nc" id="L31">			System.out.println(&quot;taille chaine doit etre inferieur/egal a 10&quot;);</span>
+			//System.exit(0);
+<span class="pc bpc" id="L33" title="1 of 4 branches missed.">		}else if (etatVide==false &amp;&amp; taille&lt;=Integer.parseInt(prop.getProperty(&quot;taille&quot;))){</span>
+			
+<span class="fc" id="L35">			System.out.println(&quot;chaine deja pleine&quot;);</span>
+			//System.exit(0);
+						
+<span class="fc" id="L38">		}else{</span>
+			
+<span class="pc bpc" id="L40" title="1 of 2 branches missed.">			if(etatVide==false){</span>
+<span class="nc" id="L41">			taille= taille-Integer.parseInt(prop.getProperty(&quot;taille&quot;));</span>
+			}
+		
+<span class="fc" id="L44">		MyList list = new MyListImpl();	</span>
+<span class="fc" id="L45">		Calculator myCalculator= new CalculatorImpl();</span>
+<span class="pc bpc" id="L46" title="1 of 2 branches missed.">		 if(taille&gt;=1){</span>
+<span class="fc" id="L47">			   list.add(val1);</span>
+<span class="fc" id="L48">			   chaineContent.append(&quot;&quot;+val1);</span>
+			   }
+<span class="pc bpc" id="L50" title="1 of 2 branches missed.">		 if(taille&gt;=2){</span>
+<span class="fc" id="L51">			   list.add(val2);</span>
+<span class="fc" id="L52">			   chaineContent.append(&quot; &quot;+val2);</span>
+		 }
+<span class="fc" id="L54">		 taille--;</span>
+<span class="fc" id="L55">		 int i=1;</span>
+<span class="fc" id="L56">		 taille--;</span>
+		 
+<span class="pc bpc" id="L58" title="5 of 13 branches missed.">		switch (op){</span>
+<span class="fc bfc" id="L59" title="All 2 branches covered.">		   case &quot;add&quot;:while(taille&gt;0){</span>
+<span class="fc" id="L60">			   list.add(myCalculator.add(list.getAt(i-1),list.getAt(i)));</span>
+<span class="fc" id="L61">			   i++;</span>
+<span class="fc" id="L62">			   chaineContent.append(&quot; &quot;+list.getAt(i));</span>
+<span class="fc" id="L63">			   taille--;</span>
+			   };
+<span class="fc" id="L65">		   break;</span>
+<span class="fc bfc" id="L66" title="All 2 branches covered.">		   case &quot;mult&quot;:while(taille&gt;0){</span>
+<span class="fc" id="L67">			   list.add(myCalculator.multiply(list.getAt(i-1),list.getAt(i)));</span>
+<span class="fc" id="L68">			   i++;</span>
+<span class="fc" id="L69">			   chaineContent.append(&quot; &quot;+list.getAt(i));</span>
+<span class="fc" id="L70">			   taille--;</span>
+			   };
+<span class="fc" id="L72">		   break;</span>
+<span class="fc bfc" id="L73" title="All 2 branches covered.">		   case &quot;soust&quot;:while(taille&gt;0){</span>
+<span class="fc" id="L74">			   list.add(myCalculator.substract(list.getAt(i-1),list.getAt(i)));</span>
+<span class="fc" id="L75">			   i++;</span>
+<span class="fc" id="L76">			   chaineContent.append(&quot; &quot;+list.getAt(i));</span>
+<span class="fc" id="L77">			   taille--;</span>
+			   };
+<span class="fc" id="L79">		   break;</span>
+<span class="fc bfc" id="L80" title="All 2 branches covered.">		   case &quot;div&quot;:while(taille&gt;0){</span>
+<span class="fc" id="L81">			   list.add(myCalculator.divide(list.getAt(i-1),list.getAt(i)));</span>
+<span class="fc" id="L82">			   i++;</span>
+<span class="fc" id="L83">			   chaineContent.append(&quot; &quot;+list.getAt(i));</span>
+<span class="fc" id="L84">			   taille--;</span>
+			   };
+<span class="fc" id="L86">		   break;</span>
+<span class="nc" id="L87">		   default:System.out.println(&quot;operateur &quot;+op+&quot; non identifié&quot;);</span>
+			   break;
+		
+		}
+		
+//save data in properties file	
+		
+<span class="fc" id="L94">		prop.setProperty(&quot;operateur&quot;, op);</span>
+	
+<span class="pc bpc" id="L96" title="1 of 2 branches missed.">		if(etatVide==true){</span>
+<span class="fc" id="L97">			prop.setProperty(&quot;indexe&quot;, &quot;0&quot;);</span>
+<span class="fc" id="L98">			prop.setProperty(&quot;contenue&quot;, &quot;&quot;+chaineContent);</span>
+<span class="fc" id="L99">		}else{</span>
+<span class="nc" id="L100">			prop.setProperty(&quot;indexe&quot;, &quot;&quot;+prop.getProperty(&quot;taille&quot;));</span>
+<span class="nc" id="L101">			prop.setProperty(&quot;contenue&quot;, &quot;&quot;+prop.getProperty(&quot;contenue&quot;)+&quot; &quot;+chaineContent);</span>
+		}
+		
+<span class="fc" id="L104">		prop.setProperty(&quot;val1&quot;, &quot;&quot;+val1);</span>
+<span class="fc" id="L105">		prop.setProperty(&quot;val2&quot;, &quot;&quot;+val2);</span>
+<span class="fc" id="L106">		prop.setProperty(&quot;taille&quot;, &quot;&quot;+(Integer.parseInt(prop.getProperty(&quot;indexe&quot;))+list.getSize()));</span>
+<span class="fc" id="L107">		editpropFile = new FileOutputStream(&quot;src/&quot;+path);</span>
+		
+		//save is deprecated but we can use it
+<span class="fc" id="L110">		prop.save(editpropFile, &quot;save&quot;);</span>
+		
+<span class="fc" id="L112">		propFile.close();</span>
+		}
+<span class="fc" id="L114">	}</span>
+		
+	
+	
+	public boolean isValid(String path) throws Exception {
+<span class="nc" id="L119">		prop = new Properties();</span>
+<span class="nc" id="L120">		propFile = new FileInputStream(&quot;src/&quot;+path); //charge le fichier de propriétés</span>
+<span class="nc" id="L121">		prop.load(propFile);</span>
+		
+		//parse properties file
+<span class="nc" id="L124">		int size = Integer.parseInt(prop.getProperty(&quot;taille&quot;));</span>
+<span class="nc" id="L125">		int indexe = Integer.parseInt(prop.getProperty(&quot;indexe&quot;));</span>
+<span class="nc" id="L126">		int val1=Integer.parseInt(prop.getProperty(&quot;val1&quot;));</span>
+<span class="nc" id="L127">		int val2=Integer.parseInt(prop.getProperty(&quot;val2&quot;));</span>
+		
+<span class="nc bnc" id="L129" title="All 2 branches missed.">		if(size&lt;indexe){</span>
+<span class="nc" id="L130">			System.out.println(&quot;fichier non valide&quot;);</span>
+<span class="nc" id="L131">			return false;</span>
+		}
+		
+<span class="nc" id="L134">		ArrayList&lt;Integer&gt; listExpectedValues = new ArrayList&lt;Integer&gt;();</span>
+		
+<span class="nc" id="L136">		int nbValues = size-indexe;</span>
+		
+<span class="nc" id="L138">		listExpectedValues.add(val1);</span>
+<span class="nc" id="L139">		nbValues--;</span>
+<span class="nc" id="L140">		listExpectedValues.add(val2);</span>
+<span class="nc" id="L141">		nbValues--;</span>
+<span class="nc" id="L142">		int i=1;</span>
+<span class="nc bnc" id="L143" title="All 13 branches missed.">		switch (prop.getProperty(&quot;operateur&quot;)){</span>
+<span class="nc bnc" id="L144" title="All 2 branches missed.">			   case &quot;add&quot;:while(nbValues&gt;0){</span>
+<span class="nc" id="L145">				   listExpectedValues.add(listExpectedValues.get(i-1)+listExpectedValues.get(i));</span>
+<span class="nc" id="L146">				   i++;</span>
+<span class="nc" id="L147">				   nbValues--;</span>
+				   };
+<span class="nc" id="L149">			   break;</span>
+<span class="nc bnc" id="L150" title="All 2 branches missed.">			   case &quot;mult&quot;:while(nbValues&gt;0){</span>
+<span class="nc" id="L151">				   listExpectedValues.add(listExpectedValues.get(i-1)*listExpectedValues.get(i));</span>
+<span class="nc" id="L152">				   i++;</span>
+<span class="nc" id="L153">				   nbValues--;</span>
+				   };
+<span class="nc" id="L155">			   break;</span>
+<span class="nc bnc" id="L156" title="All 2 branches missed.">			   case &quot;soust&quot;:while(nbValues&gt;0){</span>
+<span class="nc" id="L157">				   listExpectedValues.add(listExpectedValues.get(i-1)-listExpectedValues.get(i));</span>
+<span class="nc" id="L158">				   i++;</span>
+<span class="nc" id="L159">				   nbValues--;</span>
+				   };
+<span class="nc" id="L161">			   break;</span>
+<span class="nc bnc" id="L162" title="All 2 branches missed.">			   case &quot;div&quot;:while(nbValues&gt;0){</span>
+<span class="nc" id="L163">				   int res=listExpectedValues.get(i-1)/listExpectedValues.get(i);</span>
+<span class="nc bnc" id="L164" title="All 2 branches missed.">				   if ((((float)listExpectedValues.get(i-1) % listExpectedValues.get(i))/listExpectedValues.get(i))&gt;=0.5){</span>
+<span class="nc" id="L165">					   res++;</span>
+				   }
+<span class="nc" id="L167">				   listExpectedValues.add(res);</span>
+<span class="nc" id="L168">				   i++;</span>
+<span class="nc" id="L169">				   nbValues--;</span>
+				   };
+<span class="nc" id="L171">			   break;</span>
+			   default:{
+<span class="nc" id="L173">				   System.out.println(&quot;operateur &quot;+prop.getProperty(&quot;operateur&quot;)+&quot; non identifié&quot;);</span>
+<span class="nc" id="L174">				   return false;</span>
+				   }
+			}
+
+<span class="nc" id="L178">		String numbers = prop.getProperty(&quot;contenue&quot;); //récupère le contenue de la chaine</span>
+<span class="nc" id="L179">		int indexIterator=0;</span>
+<span class="nc" id="L180">		int j=0;</span>
+<span class="nc bnc" id="L181" title="All 2 branches missed.">		for(String nb : numbers.split(&quot; &quot;)) { //pour chaque nombre </span>
+<span class="nc" id="L182">			int value=Integer.parseInt(nb.trim());  // l'enregistrer en tant que int</span>
+<span class="nc bnc" id="L183" title="All 2 branches missed.">			if(indexIterator&gt;=indexe){</span>
+<span class="nc bnc" id="L184" title="All 2 branches missed.">				if(value!=listExpectedValues.get(j)){</span>
+<span class="nc" id="L185">					return false;</span>
+				}
+<span class="nc" id="L187">				j++;</span>
+			}
+<span class="nc" id="L189">			indexIterator++;</span>
+	        }
+		
+<span class="nc" id="L192">		return true;</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span>SuiteChaineeImplTest (16-Oct-2014 11:50:52 PM)</div></body></html>

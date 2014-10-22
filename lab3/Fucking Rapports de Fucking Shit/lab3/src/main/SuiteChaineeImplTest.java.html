@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>SuiteChaineeImplTest.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">SuiteChaineeImplTest (16-Oct-2014 11:41:46 PM)</a> &gt; <a href="../../index.html" class="el_group">lab3</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">main</a> &gt; <span class="el_source">SuiteChaineeImplTest.java</span></div><h1>SuiteChaineeImplTest.java</h1><pre class="source lang-java linenums">package main;
+
+import static org.junit.Assert.*;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.Properties;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+<span class="fc" id="L13">public class SuiteChaineeImplTest {</span>
+
+	SuiteChainee suiteChainee;
+	
+	@Before
+	public void setUp() throws Exception {
+<span class="fc" id="L19">		suiteChainee= new SuiteChaineeImpl();</span>
+		
+<span class="fc" id="L21">	}</span>
+
+	@After
+	public void tearDown() throws Exception {
+<span class="fc" id="L25">	}</span>
+
+	@Test
+	public void testEC1() {
+		try {
+<span class="nc" id="L30">			String configFile = &quot;configEC1.properties&quot;;</span>
+<span class="nc" id="L31">			suiteChainee.build(configFile, &quot;add&quot;, Integer.MIN_VALUE - 10, Integer.MIN_VALUE - 10, -1, true);</span>
+<span class="nc" id="L32">			Properties prop = PropReader.readfile(&quot;src/&quot;+configFile);</span>
+<span class="nc" id="L33">			assertEquals(true, PropReader.isValid(prop));</span>
+			
+<span class="nc" id="L35">		} catch (Exception e) {</span>
+<span class="nc" id="L36">			System.out.println(&quot;testEC1 : &quot;+e.getMessage()+e.toString());</span>
+<span class="nc" id="L37">			assertTrue(false);</span>
+		}
+<span class="nc" id="L39">	}</span>
+	
+	@Test
+	public void testEC2() {
+		try {
+<span class="fc" id="L44">			String configFile = &quot;configEC2.properties&quot;;</span>
+<span class="fc" id="L45">			suiteChainee.build(configFile, &quot;soust&quot;, 10, 5, 5, false);</span>
+<span class="fc" id="L46">			Properties prop = PropReader.readfile(&quot;src/&quot;+configFile);</span>
+<span class="fc" id="L47">			assertEquals(true, PropReader.isValid(prop));</span>
+			
+<span class="pc" id="L49">		} catch (Exception e) {</span>
+<span class="nc" id="L50">			System.out.println(&quot;testEC2 : &quot;+e.getMessage()+e.toString());</span>
+<span class="nc" id="L51">			assertTrue(false);</span>
+		}
+<span class="fc" id="L53">	}</span>
+		
+	@Test
+	public void testEC3() {
+		try {
+<span class="nc" id="L58">			String configFile = &quot;configEC3.properties&quot;;</span>
+<span class="nc" id="L59">			suiteChainee.build(configFile, &quot;mult&quot;, Integer.MAX_VALUE + 10, Integer.MAX_VALUE + 10, 1000, true);</span>
+<span class="nc" id="L60">			Properties prop = PropReader.readfile(&quot;src/&quot;+configFile);</span>
+<span class="nc" id="L61">			assertEquals(true, PropReader.isValid(prop));</span>
+			
+<span class="nc" id="L63">		} catch (Exception e) {</span>
+<span class="nc" id="L64">			System.out.println(&quot;testEC3 : &quot;+e.getMessage()+e.toString());</span>
+<span class="nc" id="L65">			assertTrue(false);</span>
+		}
+<span class="nc" id="L67">	}</span>
+	
+	@Test
+	public void testEC4() {
+		try {
+<span class="nc" id="L72">			String configFile = &quot;configEC4.properties&quot;;</span>
+<span class="nc" id="L73">			suiteChainee.build(configFile, &quot;div&quot;, 10, 5, 5, false);</span>
+<span class="nc" id="L74">			Properties prop = PropReader.readfile(&quot;src/&quot;+configFile);</span>
+<span class="nc" id="L75">			assertEquals(true, PropReader.isValid(prop));</span>
+			
+<span class="nc" id="L77">		} catch (Exception e) {</span>
+<span class="nc" id="L78">			System.out.println(&quot;testEC3 : &quot;+e.getMessage()+e.toString());</span>
+<span class="nc" id="L79">			assertTrue(false);</span>
+		}
+<span class="nc" id="L81">	}</span>
+	
+	@Test
+	public void testEC5() {
+		try {
+<span class="fc" id="L86">			String configFile = &quot;configEC5.properties&quot;;</span>
+<span class="fc" id="L87">			suiteChainee.build(configFile, &quot;wrong operation&quot;, 10, 5, 5, true);</span>
+<span class="fc" id="L88">			Properties prop = PropReader.readfile(&quot;src/&quot;+configFile);</span>
+<span class="fc" id="L89">			assertEquals(true, PropReader.isValid(prop));</span>
+			
+<span class="pc" id="L91">		} catch (Exception e) {</span>
+<span class="nc" id="L92">			System.out.println(&quot;testEC5 : &quot;+e.getMessage()+e.toString());</span>
+<span class="nc" id="L93">			assertTrue(false);</span>
+		}
+<span class="fc" id="L95">	}</span>
+	
+	@Test
+	public void testsAC() {
+		try{
+			
+			/*
+			  	AC1 O1 A2 B2 T1 V1 F1 
+				AC2 O2 A2 B2 T1 V2 F1
+				AC3 O3 A2 B2 T1 V1 F1 
+				AC4 O4 A2 B2 T1 V2 F1 
+				AC5 O1 A2 B2 T1 V1 F1 
+				AC6 O2 A2 B2 T1 V2 F1 
+				AC7 O3 A2 B2 T1 V1 F1 
+				AC8 O4 A2 B2 T1 V2 F1
+				AC9 O1 A2 B2 T1 V1 F2 
+				AC10 O2 A2 B2 T1 V1 F2 
+				AC11 O3 A2 B2 T1 V1 F2 
+				AC12 O4 A2 B2 T1 V1 F2
+
+			  	O1 : addition [ Propriété : OP_ADD] 
+				O2 : soustraction [ Propriété : OP_SOUS]  
+				O3 : multiplication [ Propriété : OP_MULT] 
+				O4 : division [ Propriété : OP_DIV]
+				
+				A2 : Entier valide [ Propriété : VAL1]
+				
+				B2 : Entier valide [ Propriété : VAL2]
+				
+				T1 : 1 &lt;= T &lt;= 10 [ Propriété : TAILLE_VAL ] 
+				
+				V1 : V = vrai [ Propriété : VIDE_VRAI ] 
+				V2 : V = faux [ Propriété : VIDE_FAUX ]
+				
+				F1 : Fichier valide [ Propriété : F_VAL ]
+				F2 : Fichier Invalide [si V1  Propriété : F_INVAL ]
+			 */
+			
+<span class="fc" id="L133">			String[] operations = {&quot;add&quot;,&quot;soust&quot;,&quot;mult&quot;,&quot;div&quot;};</span>
+<span class="fc" id="L134">			int[] valeurA = {1,2,3,64,5,6,7,128};</span>
+<span class="fc" id="L135">			int[] valeurB = {9,10,11,2,13,14,15,2};</span>
+<span class="fc" id="L136">			int[] taille = {3,4,5,3,7,8,3,4};</span>
+			
+<span class="fc bfc" id="L138" title="All 2 branches covered.">			for(int i =0; i&lt;8; i++){</span>
+<span class="fc" id="L139">				String configFile = &quot;configAC&quot;+(i+1)+&quot;.properties&quot;;</span>
+<span class="fc" id="L140">				suiteChainee.build(configFile, operations[i%4], valeurA[i%8], valeurB[i%8], taille[i%8], true);</span>
+<span class="fc" id="L141">				Properties prop = PropReader.readfile(&quot;src/&quot;+configFile);</span>
+<span class="pc bpc" id="L142" title="1 of 2 branches missed.">				if(!PropReader.isValid(prop))</span>
+<span class="nc" id="L143">					System.out.println(i+&quot; invalide&quot;);</span>
+<span class="fc" id="L144">				assertEquals(true, PropReader.isValid(prop));</span>
+			}
+			
+<span class="fc bfc" id="L147" title="All 2 branches covered.">			for(int i =8; i&lt;12; i++){</span>
+<span class="fc" id="L148">				String configFile = &quot;configAC&quot;+(i+1)+&quot;.properties&quot;;</span>
+<span class="fc" id="L149">				suiteChainee.build(configFile, operations[i%4], valeurA[i%8], valeurB[i%8], taille[i%8], false);</span>
+<span class="fc" id="L150">				Properties prop = PropReader.readfile(&quot;src/&quot;+configFile);		</span>
+<span class="fc" id="L151">				assertEquals(true, PropReader.isValid(prop));</span>
+			}
+			
+<span class="pc" id="L154">		} catch (Exception e) {</span>
+<span class="nc" id="L155">			System.out.println(e.getMessage()+e.toString());</span>
+<span class="nc" id="L156">			assertTrue(false);</span>
+		}
+<span class="fc" id="L158">	}</span>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+<span class="nc" id="L169">	public static class PropReader {</span>
+		
+		
+		public static Properties readfile(String path) throws Exception
+		{
+<span class="fc" id="L174">			Properties prop = new Properties();</span>
+<span class="fc" id="L175">			FileInputStream propFile = new FileInputStream(path);</span>
+<span class="fc" id="L176">			prop.load(propFile);</span>
+			
+<span class="fc" id="L178">			return prop;</span>
+		}
+		
+		public static boolean isValid(Properties prop)
+		{
+<span class="fc" id="L183">			int taille 			= Integer.parseInt(prop.getProperty(&quot;taille&quot;));</span>
+<span class="fc" id="L184">			String[] valeurs 	= prop.getProperty(&quot;contenue&quot;).trim().split(&quot; &quot;);</span>
+<span class="fc" id="L185">			int index 			= Integer.parseInt(prop.getProperty(&quot;indexe&quot;));</span>
+<span class="fc" id="L186">			String operateur 	= prop.getProperty(&quot;operateur&quot;);</span>
+<span class="fc" id="L187">			int val1			= Integer.parseInt(prop.getProperty(&quot;val1&quot;));</span>
+<span class="fc" id="L188">			int val2			= Integer.parseInt(prop.getProperty(&quot;val2&quot;));</span>
+			
+<span class="pc bpc" id="L190" title="1 of 4 branches missed.">			if (taille &lt; 1 || taille &gt; 10)</span>
+<span class="fc" id="L191">				return false;</span>
+			
+<span class="fc" id="L193">			int[] intval = new int[valeurs.length];</span>
+<span class="fc bfc" id="L194" title="All 2 branches covered.">			for (int i = 0; i &lt; valeurs.length; i++){</span>
+<span class="fc" id="L195">				intval[i] = Integer.parseInt(valeurs[i]);</span>
+			}
+<span class="fc" id="L197">			int[] correct = compute(operateur, val1, val2, taille);</span>
+			
+<span class="fc bfc" id="L199" title="All 2 branches covered.">			for (int i = 0; i &lt; correct.length; i++){</span>
+<span class="fc bfc" id="L200" title="All 2 branches covered.">				if (correct[i] != intval[i])return false;</span>
+			}
+			
+<span class="fc" id="L203">			return true;</span>
+		}
+		
+		public static int[] compute(String oper, int val1, int val2, int taille){
+<span class="fc" id="L207">			int[] result = new int[taille];</span>
+<span class="fc" id="L208">			result[0] = val1;</span>
+<span class="fc" id="L209">			result[1] = val2;</span>
+			
+<span class="fc bfc" id="L211" title="All 2 branches covered.">			for (int i = 2; i &lt; taille; i++)</span>
+			{
+<span class="pc bpc" id="L213" title="5 of 13 branches missed.">				switch (oper){</span>
+				case &quot;add&quot;:
+<span class="fc" id="L215">					result[i] = result[i - 2] + result [i - 1];</span>
+<span class="fc" id="L216">				break;</span>
+				case &quot;soust&quot;:
+<span class="fc" id="L218">					result[i] = result[i - 2] - result [i - 1];</span>
+<span class="fc" id="L219">				break;</span>
+				case &quot;mult&quot;:
+<span class="fc" id="L221">					result[i] = result[i - 2] * result [i - 1];</span>
+<span class="fc" id="L222">				break;</span>
+				case &quot;div&quot;:
+<span class="fc" id="L224">					result[i] = result[i - 2] / result [i - 1];</span>
+				break;
+				} 
+			}
+			
+<span class="fc" id="L229">			return result;</span>
+		}
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span>SuiteChaineeImplTest (16-Oct-2014 11:41:46 PM)</div></body></html>
